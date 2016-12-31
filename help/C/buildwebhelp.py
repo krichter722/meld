@@ -59,8 +59,7 @@ SCSS_FOOTER = """
 
 def munge_html(filename):
     if not os.path.exists(filename):
-        print >> sys.stderr, "File not found: " + filename
-        sys.exit(1)
+        raise RuntimeError("File not found: %s" % (filename,))
 
     with open(filename) as f:
         contents = f.read()
@@ -77,8 +76,7 @@ def munge_html(filename):
 def munge_css(filename):
 
     if not os.path.exists(filename):
-        print >> sys.stderr, "File not found: " + filename
-        sys.exit(1)
+        raise RuntimeError("File not found: %s" % (filename,))
 
     with open(filename) as f:
         contents = f.read()
@@ -101,8 +99,7 @@ def sassify(scss_string):
 if __name__ == "__main__":
 
     if os.path.exists('html'):
-        print >> sys.stderr, "Refusing to overwrite existing html/ folder"
-        sys.exit(1)
+        raise RuntimeError("Refusing to overwrite existing html/ folder")
 
     print >> sys.stderr, "Generating CSS with gnome-doc-tool..."
     subprocess.check_call(['gnome-doc-tool', 'css'])
